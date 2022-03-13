@@ -61,8 +61,8 @@ public class ImageUtility {
     public static void main(String[] args) {
         try {
             String password = "meiyoumima";
-            String salt1 = "1234";
-            String salt2 = "5678";
+            String salt1 = "flaasdfa23DJLJAa";
+            String salt2 = "56DFS5678fasd5678";
             byte[] keyBytes = KeyGenerationModule.getKey(password,salt1,salt2);
 
             final SecretKey key = new SecretKeySpec(keyBytes, "DESede");
