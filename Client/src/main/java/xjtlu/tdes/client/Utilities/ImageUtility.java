@@ -1,11 +1,8 @@
-package Utilities;
+package xjtlu.tdes.client.Utilities;
 
 import org.apache.commons.io.FileUtils;
 
 import javax.crypto.Cipher;
-import javax.crypto.SecretKey;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.SecretKeySpec;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -56,29 +53,6 @@ public class ImageUtility {
             e.printStackTrace();
         }
 
-    }
-
-    public static void main(String[] args) {
-        try {
-            String password = "meiyoumima";
-            String salt1 = "flaasdfa23DJLJAa";
-            String salt2 = "56DFS5678fasd5678";
-            byte[] keyBytes = KeyGenerationModule.getKey(password,salt1,salt2);
-
-            final SecretKey key = new SecretKeySpec(keyBytes, "DESede");
-            final IvParameterSpec iv = new IvParameterSpec(new byte[8]);
-
-            final Cipher encryptCipher = Cipher.getInstance("DESede/CBC/PKCS5Padding");
-            encryptCipher.init(Cipher.ENCRYPT_MODE, key, iv);
-            final Cipher decryptCipher = Cipher.getInstance("DESede/CBC/PKCS5Padding");
-            decryptCipher.init(Cipher.DECRYPT_MODE, key, iv);
-
-            ImageEncryption("XJTLU-logo.png",encryptCipher);
-            ImageDecryption("XJTLU-logo.png",decryptCipher);
-
-        } catch (Exception e){
-            e.printStackTrace();
-        }
     }
 
 }

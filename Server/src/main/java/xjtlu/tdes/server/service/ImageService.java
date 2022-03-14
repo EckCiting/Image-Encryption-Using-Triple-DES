@@ -4,6 +4,6 @@ import xjtlu.tdes.server.Response;
 import xjtlu.tdes.server.entity.TDESImage;
 
 public interface ImageService {
-    Response<?> imageSaltObtain(String imageName);
+    Response<?> imageSaltObtain(TDESImage image);
     Response<?> imageInfoCreate(TDESImage newImage);
 }

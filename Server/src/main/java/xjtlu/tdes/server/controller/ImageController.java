@@ -12,9 +12,9 @@ public class ImageController {
     @Resource
     private ImageService imageService;
 
-    @PostMapping("/getsalt/{imagename}")
-    public Response<?> getImageSalt(@PathVariable String imagename){
-        return imageService.imageSaltObtain(imagename);
+    @PostMapping("/getsalt/")
+    public Response<?> getImageSalt(@RequestBody TDESImage tdesImage){
+        return imageService.imageSaltObtain(tdesImage);
     }
 
     @PostMapping("/addimage/")

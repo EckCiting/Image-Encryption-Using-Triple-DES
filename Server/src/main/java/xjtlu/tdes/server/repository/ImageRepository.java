@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface ImageRepository extends JpaRepository<TDESImage, Integer> {
     Optional<TDESImage> findByImageName(String imageName);
+    Optional<TDESImage> findByImageHash(String imageHash);
 }

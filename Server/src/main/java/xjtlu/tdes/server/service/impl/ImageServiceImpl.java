@@ -18,8 +18,8 @@ public class ImageServiceImpl implements ImageService {
 
     // Need to consider how to prevent replay attacks
     @Override
-    public Response<?> imageSaltObtain(String imageName) {
-        Optional<TDESImage> tdesImage = imageRepository.findByImageName(imageName);
+    public Response<?> imageSaltObtain(TDESImage image) {
+        Optional<TDESImage> tdesImage = imageRepository.findByImageHash(image.getImageHash());
         if (tdesImage.isPresent()) {
             return Response.ok("Found",tdesImage.get().getSalt());
         }
@@ -28,10 +28,9 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-
     public Response<?> imageInfoCreate(TDESImage newImage) {
 
-        Optional<TDESImage> tdesImage = imageRepository.findByImageName(newImage.getImageName());
+        Optional<TDESImage> tdesImage = imageRepository.findByImageHash(newImage.getImageHash());
         if (tdesImage.isPresent()) {
             return Response.ok("Image Already Exists");
         }

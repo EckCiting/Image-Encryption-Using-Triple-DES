@@ -1,4 +1,4 @@
-package Utilities;
+package xjtlu.tdes.client.Utilities;
 
 import javax.crypto.Cipher;
 
