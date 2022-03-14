@@ -1,14 +1,11 @@
 package xjtlu.tdes.client;
 
 import org.apache.commons.codec.binary.Hex;
-import xjtlu.tdes.client.Utilities.ImageUtility;
 
-import javax.crypto.Cipher;
+
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
-import javax.crypto.spec.SecretKeySpec;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 public class KeyGenerationModule {
@@ -50,26 +47,4 @@ public class KeyGenerationModule {
         return hashValue2;
     }
 
-    public static void main(String[] args) {
-        try {
-            String password = "meiyoumima";
-            String salt1 = "flaasdfa23DJLJAab";
-            String salt2 = "56DFS5678fasd5678";
-            byte[] keyBytes = KeyGenerationModule.getKey(password,salt1,salt2);
-
-            final SecretKey key = new SecretKeySpec(keyBytes, "DESede");
-            final IvParameterSpec iv = new IvParameterSpec(new byte[8]);
-
-            final Cipher encryptCipher = Cipher.getInstance("DESede/CBC/PKCS5Padding");
-            encryptCipher.init(Cipher.ENCRYPT_MODE, key, iv);
-            final Cipher decryptCipher = Cipher.getInstance("DESede/CBC/PKCS5Padding");
-            decryptCipher.init(Cipher.DECRYPT_MODE, key, iv);
-
-            ImageUtility.ImageEncryption("XJTLU-logo.png",encryptCipher);
-            ImageUtility.ImageDecryption("XJTLU-logo.png",decryptCipher);
-
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-    }
 }
