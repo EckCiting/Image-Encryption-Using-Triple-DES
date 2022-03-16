@@ -15,7 +15,6 @@ public class ImageServiceImpl implements ImageService {
 
     @Autowired
     ImageRepository imageRepository;
-
     // Need to consider how to prevent replay attacks
     @Override
     public Response<?> imageSaltObtain(TDESImage image) {
@@ -24,7 +23,7 @@ public class ImageServiceImpl implements ImageService {
             return Response.ok("Found",tdesImage.get().getSalt());
         }
         else
-            return Response.ok("Image Not Found");
+            return Response.exceptionHandling(11,"Image Not Found");
     }
 
     @Override
@@ -32,7 +31,7 @@ public class ImageServiceImpl implements ImageService {
 
         Optional<TDESImage> tdesImage = imageRepository.findByImageHash(newImage.getImageHash());
         if (tdesImage.isPresent()) {
-            return Response.ok("Image Already Exists");
+            return Response.exceptionHandling(12,"Image Already Exists");
         }
         else {
             newImage.setSalt(SaltUtil.saltGeneration(32));

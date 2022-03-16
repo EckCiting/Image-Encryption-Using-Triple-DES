@@ -4,25 +4,21 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import javax.persistence.Entity;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
 
 
 @Entity
 @Data
 @Builder
 @AllArgsConstructor
-@Table(name = "ImagesWithSalt")
+@Table(name = "ImagesWithSalt",indexes= {
+        @Index(columnList="expireDate")
+})
 public class TDESImage implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -31,11 +27,14 @@ public class TDESImage implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer imageId;
 
-    @Column(length = 20, unique = true)
+    @Column(length = 20)
     private String imageName;
 
     @Column(length = 35, unique = true)
     private String imageHash;
+
+    @Column(length = 35, unique = true)
+    private String encryptedImageHash;
 
     @Column(length = 50)
     private String salt;

@@ -1,5 +1,8 @@
 package xjtlu.tdes.client.Utilities;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
 import org.apache.hc.client5.http.config.RequestConfig;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
@@ -10,9 +13,15 @@ import org.apache.hc.core5.http.HttpStatus;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 import org.apache.hc.core5.util.Timeout;
+import xjtlu.tdes.client.Config;
+import xjtlu.tdes.client.TDESImage;
+
+import java.sql.SQLException;
+import java.util.function.Function;
+
+import static xjtlu.tdes.client.TransmissionModule.getSaltFromDatabase;
 
 public class WebUtility {
-
     public static String postRequest(String url, String jsonBody) {
         String returnValue = "";
         CloseableHttpClient httpClient = HttpClients.createDefault();
