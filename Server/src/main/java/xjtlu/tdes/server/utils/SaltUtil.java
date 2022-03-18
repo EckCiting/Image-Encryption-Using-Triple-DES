@@ -16,4 +16,8 @@ public class SaltUtil {
         }
         return stringBuilder.toString();
     }
+
+    public static byte[] ivGeneration() {
+        return saltGeneration(8).getBytes();
+    }
 }

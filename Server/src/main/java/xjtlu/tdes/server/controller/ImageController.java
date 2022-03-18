@@ -24,14 +24,14 @@ public class ImageController {
     @PostMapping("/encryptimage")
     @ExceptionHandler()
     public ResponseEntity<?> encryptImage(@RequestParam("image") @NotNull MultipartFile image, @RequestParam String password,
-                                          @RequestParam String expireDate){
+                                          @RequestParam String expireDate) {
         saltService.expirDateCheck();
-        return imageService.imageEncryption(image,password,expireDate);
+        return imageService.imageEncryption(image, password, expireDate);
     }
 
     @PostMapping("/decryptimage")
-    public ResponseEntity<?> decryptImage(@RequestParam("image") @NotNull MultipartFile image, @RequestParam String password){
+    public ResponseEntity<?> decryptImage(@RequestParam("image") @NotNull MultipartFile image, @RequestParam String password) {
         saltService.expirDateCheck();
-        return imageService.imageDecryption(image,password);
+        return imageService.imageDecryption(image, password);
     }
 }

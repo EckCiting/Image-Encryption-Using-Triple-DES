@@ -30,7 +30,8 @@ public class ImageServiceImpl implements ImageService {
         try {
             TDESImage newImage = new TDESImage(image.getOriginalFilename(), expireDate);
             newImage.setSalt(SaltUtil.saltGeneration(32));
-            MultipartFile encryptedImage = CryptionModule.TDESEncryption(image, password, newImage.getSalt(), new byte[8]);
+            newImage.setIv(SaltUtil.ivGeneration());
+            MultipartFile encryptedImage = CryptionModule.TDESEncryption(image, password, newImage.getSalt(), newImage.getIv());
             newImage.setImageHash(DigestUtils.md5Hex(encryptedImage.getBytes()));
             imageRepository.save(newImage);
             HttpHeaders responseHeaders = new HttpHeaders();
@@ -56,7 +57,7 @@ public class ImageServiceImpl implements ImageService {
                 if (res.get().getSalt().isEmpty()) {
                     return new ResponseEntity<>("Image has expired", HttpStatus.FORBIDDEN);
                 } else {
-                    MultipartFile decryptedImage = CryptionModule.TDESDecryption(image, password, res.get().getSalt(), new byte[8]);
+                    MultipartFile decryptedImage = CryptionModule.TDESDecryption(image, password, res.get().getSalt(), res.get().getIv());
                     HttpHeaders responseHeaders = new HttpHeaders();
                     responseHeaders.add("Content-Disposition", "attachment; filename=decrypted_" + res.get().getImageName());
                     responseHeaders.add("Pragma", "no-cache");

@@ -38,6 +38,8 @@ public class TDESImage implements Serializable {
     @Column(length = 35, unique = true)
     private String imageHash;
 
+    @Column(length = 8)
+    private byte[] iv;
 
     @Column(length = 50)
     private String salt;
@@ -46,7 +48,7 @@ public class TDESImage implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm", timezone = "GMT+8")
     private Date expireDate;
 
-    public TDESImage(String imageName, String expireDateString){
+    public TDESImage(String imageName, String expireDateString) {
         this.imageName = imageName;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm", Locale.CHINA);
         LocalDateTime ldt = LocalDateTime.parse(expireDateString, formatter);
