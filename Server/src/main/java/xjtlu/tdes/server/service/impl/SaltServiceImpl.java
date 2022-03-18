@@ -20,7 +20,7 @@ public class SaltServiceImpl implements SaltService {
     ImageRepository imageRepository;
 
     @Override
-    @Scheduled(fixedRate = 5000)
+    @Scheduled(fixedRate = 1000 * 60 * 6)
     public void expirDateCheck() {
         //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
         //LocalDateTime ldt = LocalDateTime.parse("2022-03-16 00:00:00", formatter);
