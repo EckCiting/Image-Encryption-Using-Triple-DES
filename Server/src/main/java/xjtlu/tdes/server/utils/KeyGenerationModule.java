@@ -1,7 +1,6 @@
-package xjtlu.tdes.client;
+package xjtlu.tdes.server.utils;
 
 import org.apache.commons.codec.binary.Hex;
-
 
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;

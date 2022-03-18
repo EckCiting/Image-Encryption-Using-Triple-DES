@@ -1,9 +1,9 @@
 package xjtlu.tdes.server.service;
 
-import xjtlu.tdes.server.Response;
-import xjtlu.tdes.server.entity.TDESImage;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface ImageService {
-    Response<?> imageSaltObtain(TDESImage image);
-    Response<?> imageInfoCreate(TDESImage newImage);
+    ResponseEntity<?> imageEncryption(MultipartFile image, String password, String expireDate);
+    ResponseEntity<?> imageDecryption(MultipartFile image, String password);
 }

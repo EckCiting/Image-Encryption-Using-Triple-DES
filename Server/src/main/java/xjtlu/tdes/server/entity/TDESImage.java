@@ -7,9 +7,14 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Locale;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.apache.commons.codec.digest.DigestUtils;
 
 
 @Entity
@@ -33,8 +38,6 @@ public class TDESImage implements Serializable {
     @Column(length = 35, unique = true)
     private String imageHash;
 
-    @Column(length = 35, unique = true)
-    private String encryptedImageHash;
 
     @Column(length = 50)
     private String salt;
@@ -45,5 +48,12 @@ public class TDESImage implements Serializable {
 
     public TDESImage() {
 
+    }
+
+    public TDESImage(String imageName, String expireDateString){
+        this.imageName = imageName;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
+        LocalDateTime ldt = LocalDateTime.parse(expireDateString, formatter);
+        this.expireDate = Date.from(ldt.atZone(ZoneId.of("UTC+8")).toInstant());
     }
 }
