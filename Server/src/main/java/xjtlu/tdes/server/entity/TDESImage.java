@@ -32,7 +32,7 @@ public class TDESImage implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer imageId;
 
-    @Column(length = 20)
+    @Column(length = 50)
     private String imageName;
 
     @Column(length = 35, unique = true)

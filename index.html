@@ -1,7 +1,7 @@
 <html>
 <body>
 <h1>Encryption</h1>
-<form action="http://localhost:6767/api/encryptimage" method="post" enctype="multipart/form-data">
+<form action="http://127.0.0.1:6767/api/encryptimage" method="post" enctype="multipart/form-data">
     <input name = "image" type="file" value="file">
     Password <input type="text" name="password" value="Input Password"><br>
     <input  type = "datetime-local" name = "expireDate">
@@ -9,7 +9,7 @@
 </form>
 
 <h1>Decryption</h1>
-<form action="http://localhost:6767/api/decryptimage" method="post" enctype="multipart/form-data">
+<form action="http://127.0.0.1:6767/api/decryptimage" method="post" enctype="multipart/form-data">
     <input name = "image" type="file" value="file">
     Password <input type="text" name="password" value="Input Password"><br>
     <input type="submit" value="sumbit">
