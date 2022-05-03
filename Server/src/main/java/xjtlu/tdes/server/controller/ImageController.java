@@ -7,10 +7,12 @@ import xjtlu.tdes.server.service.ImageService;
 import xjtlu.tdes.server.service.SaltService;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 
-
+@CrossOrigin
 @RestController
 @RequestMapping("/")
+
 public class ImageController {
     @Resource
     private ImageService imageService;
@@ -24,7 +26,7 @@ public class ImageController {
     @PostMapping("/encryptimage")
     @ExceptionHandler()
     public ResponseEntity<?> encryptImage(@RequestParam("image") @NotNull MultipartFile image, @RequestParam String password,
-                                          @RequestParam String expireDate) {
+                                          @RequestParam String expireDate)  {
         saltService.expirDateCheck();
         return imageService.imageEncryption(image, password, expireDate);
     }

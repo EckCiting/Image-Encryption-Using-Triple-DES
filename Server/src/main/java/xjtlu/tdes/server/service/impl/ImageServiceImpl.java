@@ -21,7 +21,9 @@ import java.util.Optional;
 public class ImageServiceImpl implements ImageService {
 
     @Autowired
-    ImageRepository imageRepository;
+    private ImageRepository imageRepository;
+    @Autowired
+    private CryptionModule cryptionModule;
 
     @Override
     public ResponseEntity<?> imageEncryption(MultipartFile image, String password, String expireDate) {
@@ -31,10 +33,12 @@ public class ImageServiceImpl implements ImageService {
             TDESImage newImage = new TDESImage(image.getOriginalFilename(), expireDate);
             newImage.setSalt(SaltUtil.saltGeneration(32));
             newImage.setIv(SaltUtil.ivGeneration());
-            MultipartFile encryptedImage = CryptionModule.TDESEncryption(image, password, newImage.getSalt(), newImage.getIv());
+            MultipartFile encryptedImage = cryptionModule.TDESEncryption(image, password, newImage.getSalt(), newImage.getIv());
             newImage.setImageHash(DigestUtils.md5Hex(encryptedImage.getBytes()));
             imageRepository.save(newImage);
             HttpHeaders responseHeaders = new HttpHeaders();
+            // unsafe to expose Access-Control-Expose-Headers, for demo only.
+            responseHeaders.set("Access-Control-Expose-Headers", "Content-Disposition");
             responseHeaders.add("Content-Disposition", "attachment; filename=encrypted_" + newImage.getImageName());
             responseHeaders.add("Pragma", "no-cache");
             responseHeaders.add("Cache-Control", "no-cache");
@@ -57,8 +61,10 @@ public class ImageServiceImpl implements ImageService {
                 if (res.get().getSalt().isEmpty()) {
                     return new ResponseEntity<>("Image has expired", HttpStatus.FORBIDDEN);
                 } else {
-                    MultipartFile decryptedImage = CryptionModule.TDESDecryption(image, password, res.get().getSalt(), res.get().getIv());
+                    MultipartFile decryptedImage = cryptionModule.TDESDecryption(image, password, res.get().getSalt(), res.get().getIv());
                     HttpHeaders responseHeaders = new HttpHeaders();
+                    // unsafe to expose Access-Control-Expose-Headers, for demo only.
+                    responseHeaders.set("Access-Control-Expose-Headers", "Content-Disposition");
                     responseHeaders.add("Content-Disposition", "attachment; filename=decrypted_" + res.get().getImageName());
                     responseHeaders.add("Pragma", "no-cache");
                     responseHeaders.add("Cache-Control", "no-cache");

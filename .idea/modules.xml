@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Image-Encryption-Using-Triple-DES.iml" filepath="$PROJECT_DIR$/Image-Encryption-Using-Triple-DES.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Server/Server.iml" filepath="$PROJECT_DIR$/Server/Server.iml" />
     </modules>
   </component>
 </project>
