@@ -151,7 +151,7 @@ export default {
 
       await this.$axios({
         method: "post",
-        url: "https://tdes.eckciting.xyz/api/encryptimage",
+        url: "https://tdes.chnnhc.com/api/encryptimage",
         data: originalFile,
         responseType: 'blob'
       }).then((res) => {
@@ -182,7 +182,7 @@ export default {
       originalFile.append("image", this.imgFile);
       await this.$axios({
         method: "post",
-        url: "https://tdes.eckciting.xyz/api/encryptimagedemo",
+        url: "https://tdes.chnnhc.com/api/encryptimagedemo",
         data: originalFile,
       }).then((res) => {
         this.salt = res.data.salt;
