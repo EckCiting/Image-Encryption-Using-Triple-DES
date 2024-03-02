@@ -1,0 +1,5 @@
+FROM openjdk:8-jdk-alpine
+WORKDIR /app
+COPY ./Server/target/Server-0.0.1-SNAPSHOT.jar /app/spring-boot-application.jar
+EXPOSE 6767
+CMD ["java", "-jar", "spring-boot-application.jar"]
